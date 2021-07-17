@@ -132,6 +132,11 @@ class MetaArray(object):
   
     def __init__(self, data=None, info=None, dtype=None, file=None, copy=False, **kwargs):
         object.__init__(self)
+        warnings.warn(
+            'MetaArray is deprecated and will be removed in 0.14. '
+            'Available though https://pypi.org/project/MetaArray/ as its own package.',
+            DeprecationWarning, stacklevel=2
+        )    
         self._isHDF = False
         
         if file is not None:
@@ -1330,8 +1335,6 @@ if __name__ == '__main__':
     #### File I/O tests
     
     print("\n================  File I/O Tests  ===================\n")
-    import tempfile
-    tf = tempfile.mktemp()
     tf = 'test.ma'
     # write whole array
     

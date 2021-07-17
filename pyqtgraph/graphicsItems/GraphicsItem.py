@@ -9,6 +9,7 @@ from .. import functions as fn
 import weakref
 import operator
 
+__all__ = ['GraphicsItem']
 
 # Recipe from https://docs.python.org/3.8/library/collections.html#collections.OrderedDict
 # slightly adapted for Python 3.7 compatibility
@@ -168,7 +169,7 @@ class GraphicsItem(object):
             p = p.parentItem()
             if p is None:
                 break
-            if p.flags() & self.ItemClipsChildrenToShape:
+            if p.flags() & self.GraphicsItemFlag.ItemClipsChildrenToShape:
                 parents.append(p)
         return parents
     
@@ -438,19 +439,16 @@ class GraphicsItem(object):
         """
         if relativeItem is None:
             relativeItem = self.parentItem()
-            
 
         tr = self.itemTransform(relativeItem)
         if isinstance(tr, tuple):  ## difference between pyside and pyqt
             tr = tr[0]
-        #vec = tr.map(Point(1,0)) - tr.map(Point(0,0))
         vec = tr.map(QtCore.QLineF(0,0,1,0))
-        #return Point(vec).angle(Point(1,0))
         return vec.angleTo(QtCore.QLineF(vec.p1(), vec.p1()+QtCore.QPointF(1,0)))
         
     #def itemChange(self, change, value):
         #ret = self._qtBaseClass.itemChange(self, change, value)
-        #if change == self.ItemParentHasChanged or change == self.ItemSceneHasChanged:
+        #if change == self.GraphicsItemChange.ItemParentHasChanged or change == self.ItemSceneHasChanged:
             #print "Item scene changed:", self
             #self.setChildScene(self)  ## This is bizarre.
         #return ret
@@ -556,6 +554,8 @@ class GraphicsItem(object):
         """
         Called whenever the view coordinates of the ViewBox containing this item have changed.
         """
+        # when this is called, _cachedView is not invalidated.
+        # this means that for functions overriding viewRangeChanged, viewRect() may be stale.
         pass
     
     def viewTransformChanged(self):

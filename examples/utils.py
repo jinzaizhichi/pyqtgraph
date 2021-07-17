@@ -1,8 +1,8 @@
 from collections import OrderedDict
 from argparse import Namespace
 
-
-examples = OrderedDict([
+# Avoid clash with module name
+examples_ = OrderedDict([
     ('Command-line usage', 'CLIexample.py'),
     ('Basic Plotting', Namespace(filename='Plotting.py', recommended=True)),
     ('ImageView', 'ImageView.py'),
@@ -12,7 +12,7 @@ examples = OrderedDict([
     ('Plot Customization', 'customPlot.py'),
     ('Timestamps on x axis', 'DateAxisItem.py'),
     ('Image Analysis', 'imageAnalysis.py'),
-    ('Color Maps', 'colorMaps.py'),
+    ('Matrix Display', 'MatrixDisplayExample.py'),
     ('ViewBox Features', Namespace(filename='ViewBoxFeatures.py', recommended=True)),
     ('Dock widgets', 'dockarea.py'),
     ('Console', 'ConsoleWidget.py'),
@@ -28,6 +28,11 @@ examples = OrderedDict([
         ('Special relativity', 'relativity_demo.py'),
         ('Verlet chain', 'verlet_chain_demo.py'),
         ('Koch Fractal', 'fractal.py'),
+    ])),
+    ('Colors', OrderedDict([
+        ('Color Maps', 'colorMaps.py'),
+        ('Color Map Linearization', 'colorMapsLinearized.py'),
+        ('Color Gradient Plots', 'ColorGradientPlots.py')
     ])),
     ('GraphicsItems', OrderedDict([
         ('Scatter Plot', 'ScatterPlot.py'),
@@ -68,6 +73,7 @@ examples = OrderedDict([
         ('Line Plot', 'GLLinePlotItem.py'),
         ('Mesh', 'GLMeshItem.py'),
         ('Image', 'GLImageItem.py'),
+        ('Text', 'GLTextItem.py'),
     ])),
     ('Widgets', OrderedDict([
         ('PlotWidget', 'PlotWidget.py'),
